@@ -1,0 +1,14 @@
+MySQL
+
+Hostname: 127.0.0.1
+Username: root
+Password: root
+Port: 33066
+
+phpMyAdmin
+
+http://localhost:8080/phpmyadmin
+
+Web server
+
+http://localhost:8080
