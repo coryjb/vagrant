@@ -10,11 +10,12 @@ apt-get -y update
 apt-get -y install python-software-properties
 add-apt-repository ppa:ondrej/php5
 apt-get -y update
-apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl git curl
+apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl php5-gd git curl ruby rubygems
 adduser vagrant www-data
 
 # Configure MySQL
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
+mysql -p"root" -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';"
 
 # Install phpMyAdmin
 cd /usr/local/src
@@ -23,11 +24,19 @@ tar xzvf phpmyadmin.tgz
 mv phpMyAdmin-4.1.13-english /var/www/phpmyadmin
 
 # Configure Apache
+sed -i 's/www-data/vagrant/g' /etc/apache2/envvars
 mkdir /var/www/html
 
 echo '<VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
+
+        <Directory "/var/www">
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride all
+            Order allow,deny
+            Allow from all
+        </Directory>
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
@@ -44,6 +53,7 @@ a2enmod rewrite
 
 # Compass CSS compiler
 gem install compass
+ln -s /usr/local/bin/compass /usr/bin/compass
 
 # Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer

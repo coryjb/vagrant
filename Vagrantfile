@@ -18,11 +18,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Default value: false
   # config.ssh.forward_agent = true
 
-  config.vm.synced_folder "./www", "/var/www/html"
+  config.vm.synced_folder "./www", "/var/www/html", type: "rsync"
 
   config.vm.provider "virtualbox" do |vb|
      vb.gui = false
-     vb.customize ["modifyvm", :id, "--memory", "512"]
+     vb.cpus = 2
+     vb.memory = 2048
   end
 
   config.vm.provision "shell", path: "scripts/provision.sh"
