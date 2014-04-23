@@ -27,4 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", path: "scripts/provision.sh"
+
+  if Vagrant.has_plugin?("vagrant-gatling-rsync")
+      config.gatling.latency = 2.5
+  end
 end
