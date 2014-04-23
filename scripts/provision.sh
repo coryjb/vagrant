@@ -11,6 +11,7 @@ apt-get -y install python-software-properties
 add-apt-repository ppa:ondrej/php5
 apt-get -y update
 apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl git curl
+adduser vagrant www-data
 
 # Configure MySQL
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
