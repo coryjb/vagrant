@@ -18,7 +18,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Default value: false
   # config.ssh.forward_agent = true
 
-  config.vm.synced_folder "./www", "/var/www/html", type: "rsync"
+  config.vm.synced_folder "./www", "/var/www/html", type: "rsync",
+    rsync__exclude: [
+      "*/.git/",
+      "*/app/bootstrap.php.cache",
+      "*/app/cache/",
+      "*/vendor/",
+      "*/build/",
+      "*/web/bundles/",
+      "*/web/css/",
+      "*/web/js/",
+      "*/web/build.js",
+      "*/app/logs/"
+    ]
 
   config.vm.provider "virtualbox" do |vb|
      vb.gui = false
