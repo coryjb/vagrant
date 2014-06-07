@@ -10,7 +10,7 @@ apt-get -y update
 apt-get -y install python-software-properties
 add-apt-repository ppa:ondrej/php5
 apt-get -y update
-apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl php5-gd git curl ruby rubygems
+apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl php5-gd php5-imagick php5-intl git curl ruby rubygems imagemagick vim
 adduser vagrant www-data
 
 # Configure MySQL

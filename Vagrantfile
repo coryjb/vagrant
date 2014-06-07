@@ -11,6 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 3306, host: 33066
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.network "forwarded_port", guest: 59844, host: 5984
 
   config.vm.network "private_network", ip: "192.168.33.10"
 
@@ -23,14 +25,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "*/.git/",
       "*/app/bootstrap.php.cache",
       "*/app/cache/",
-      "*/vendor/",
-      "*/build/",
       "*/web/bundles/",
       "*/web/css/",
       "*/web/js/",
       "*/web/build.js",
-      "*/app/logs/"
-    ]
+      "*/app/logs/",
+      "*/app/config/parameters.yml",
+      "*/vendor/",
+      "*/comparison.json"
+    ]  
 
   config.vm.provider "virtualbox" do |vb|
      vb.gui = false
