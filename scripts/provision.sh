@@ -10,7 +10,7 @@ apt-get -y update
 apt-get -y install python-software-properties
 add-apt-repository ppa:ondrej/php5
 apt-get -y update
-apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl php5-gd php5-imagick php5-intl git curl ruby rubygems imagemagick vim
+apt-get -y -q install php5 apache2 mysql-server php5-mysql php5-json php5-curl php5-gd php5-imagick php5-intl git curl ruby rubygems imagemagick vim php5-apcu
 adduser vagrant www-data
 
 # Configure MySQL
@@ -50,6 +50,16 @@ Alias /phpmyadmin "/var/www/phpmyadmin/"
 ' > /etc/apache2/sites-available/000-default.conf
 
 a2enmod rewrite
+
+echo 'zend_extension=xdebug.so
+xdebug.default_enable = 1
+xdebug.idekey = "vagrant"
+xdebug.remote_enable = 1
+xdebug.remote_autostart = 0
+xdebug.remote_port = 9000
+xdebug.remote_handler=dbgp
+xdebug.remote_log="/var/log/xdebug/xdebug.log"
+xdebug.remote_host=192.168.33.1' > /etc/php5/mods-available/xdebug.ini
 
 # Compass CSS compiler
 gem install compass
